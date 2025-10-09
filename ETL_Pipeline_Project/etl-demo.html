@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ETL Pipeline Demo</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 ETL Pipeline Demo</h1>
+    <p>Contoh hasil proses Extract, Transform, Load (ETL) sederhana.</p>
+
+    <section class="table-section">
+      <h2>Hasil Transformasi Data</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Produk</th>
+            <th>Jumlah Terjual</th>
+            <th>Total Penjualan (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Produk A</td><td>120</td><td>3.600.000</td></tr>
+          <tr><td>Produk B</td><td>85</td><td>2.550.000</td></tr>
+          <tr><td>Produk C</td><td>150</td><td>4.500.000</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="chart-section">
+      <h2>Visualisasi Data</h2>
+      <canvas id="salesChart" width="400" height="200"></canvas>
+    </section>
+  </div>
+
+<script>
+const ctx = document.getElementById('salesChart');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Produk A', 'Produk B', 'Produk C'],
+    datasets: [{
+      label: 'Total Penjualan (Rp)',
+      data: [3600000, 2550000, 4500000],
+      backgroundColor: 'rgba(54, 162, 235, 0.5)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: { beginAtZero: true }
+    }
+  }
+});
+</script>
+</body>
+</html>
