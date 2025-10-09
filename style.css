@@ -95,6 +95,55 @@ footer{padding:30px 6%;text-align:center;color:rgba(235,245,255,0.7);margin-top:
   font-weight: 600;
   transition: background 0.3s;
 }
+/* Styling untuk setiap project utama */
+.project {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* Subproject di dalam project */
+.subproject {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-top: 15px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+.subproject h4 {
+  color: #00b7ff;
+  margin-bottom: 6px;
+}
+
+.subproject p {
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+/* Tombol Lihat Demo */
+.subproject .btn {
+  background-color: #00b7ff;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.subproject .btn:hover {
+  background-color: #008acc;
+}
+
 
 .subproject a.btn:hover {
   background: #2b5fd6;
