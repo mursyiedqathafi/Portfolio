@@ -111,4 +111,32 @@ footer{padding:30px 6%;text-align:center;color:rgba(235,245,255,0.7);margin-top:
 .subproject .btn:hover {
   background: #2b5fd6;
 }
+.project {
+  position: relative;
+  display: block; /* pastikan isi di dalam terlihat */
+}
+
+.subproject {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-left: 3px solid #4f9cff;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  color: #fff; /* teks tetap kontras di tema gelap */
+}
+
+.subproject a.btn {
+  display: inline-block;
+  margin-top: 8px;
+  background: #4f9cff;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.subproject a.btn:hover {
+  background: #2b5fd6;
+}
 
