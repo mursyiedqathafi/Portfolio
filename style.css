@@ -14,7 +14,7 @@ body{
 }
 .bg-overlay{
   position:fixed;inset:0;
-  background-image: url('assets/background.svg');
+  background-image: url('assets/gungung.png');
   background-size: cover;
   background-position: center;
   filter: saturate(1.05) contrast(0.9);
