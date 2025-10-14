@@ -1,11 +1,11 @@
-const apiKey = '2ca78de23a942c2bff07401eb7dafa45'; 
+const apiKey = '2ca78de23a942c2bff07401eb7dafa45';
 const weatherDiv = document.getElementById('weatherResult');
 const loading = document.getElementById('loading');
 
 document.getElementById('getWeather').addEventListener('click', () => {
   const city = document.getElementById('cityInput').value.trim();
   if (!city) {
-    weatherDiv.innerHTML = '⚠️ Masukkan nama kota terlebih dahulu.';
+    showMessage('⚠️ Masukkan nama kota terlebih dahulu.');
     return;
   }
   getWeatherByCity(city);
@@ -13,7 +13,7 @@ document.getElementById('getWeather').addEventListener('click', () => {
 
 // Ambil cuaca berdasarkan kota
 function getWeatherByCity(city) {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=id`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric&lang=id`;
   fetchWeather(url);
 }
 
@@ -26,6 +26,7 @@ function getWeatherByLocation(lat, lon) {
 // Fetch data cuaca + animasi
 function fetchWeather(url) {
   loading.classList.remove('hidden');
+  weatherDiv.classList.remove('show');
   weatherDiv.innerHTML = '';
 
   fetch(url)
@@ -42,18 +43,24 @@ function fetchWeather(url) {
       const wind = data.wind.speed;
 
       weatherDiv.innerHTML = `
-        <h2>${data.name}, ${data.sys.country}</h2>
-        <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${desc}">
-        <p><strong>${desc.toUpperCase()}</strong></p>
+        <h2>${escapeHtml(data.name)}, ${escapeHtml(data.sys.country)}</h2>
+        <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${escapeHtml(desc)}" />
+        <p><strong>${escapeHtml(desc).toUpperCase()}</strong></p>
         <p>🌡️ Suhu: ${temp}°C</p>
         <p>💧 Kelembapan: ${humidity}%</p>
         <p>🌬️ Angin: ${wind} m/s</p>
       `;
+      weatherDiv.classList.add('show');
     })
     .catch(error => {
       loading.classList.add('hidden');
-      weatherDiv.innerHTML = `❌ ${error.message}`;
+      showMessage(`❌ ${error.message}`);
     });
+}
+
+function showMessage(msg) {
+  weatherDiv.innerHTML = `<p>${msg}</p>`;
+  weatherDiv.classList.add('show');
 }
 
 // Saat halaman pertama kali dibuka, coba deteksi lokasi pengguna
@@ -64,11 +71,21 @@ window.addEventListener('load', () => {
         const { latitude, longitude } = position.coords;
         getWeatherByLocation(latitude, longitude);
       },
-      () => {
-        weatherDiv.innerHTML = 'Tidak bisa mendeteksi lokasi. Silakan masukkan kota secara manual.';
-      }
+      err => {
+        // Jika pengguna tolak atau error, biarkan input manual
+        console.log('Geolocation error or denied:', err);
+        showMessage('Tidak bisa mendeteksi lokasi. Silakan masukkan kota secara manual.');
+      },
+      { timeout: 8000 }
     );
   } else {
-    weatherDiv.innerHTML = 'Browser tidak mendukung geolokasi.';
+    showMessage('Browser tidak mendukung geolokasi.');
   }
 });
+
+// Minimal HTML escaping to avoid injection if city name contains weird chars
+function escapeHtml(str) {
+  return (''+str).replace(/[&<>"']/g, function(m) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];
+  });
+}
