@@ -14,6 +14,7 @@ body {
   padding: 30px 50px;
   border-radius: 12px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 360px;
 }
 
 h1 {
@@ -49,6 +50,14 @@ button:hover {
   margin-top: 20px;
   font-size: 18px;
   color: #333;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+#weatherResult.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Animasi loading */
@@ -69,4 +78,11 @@ button:hover {
 
 .hidden {
   display: none;
+}
+
+/* Responsive */
+@media (max-width: 420px) {
+  .container { width: 90%; padding: 24px; }
+  input { width: 140px; margin-bottom: 8px; }
+  button { width: 100%; }
 }
